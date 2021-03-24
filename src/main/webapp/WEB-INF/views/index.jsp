@@ -29,8 +29,9 @@
     </nav>
 </header>
 <div class="container">
+<a class="btn btn-primary" style="float:right" href="<c:url value='/edit/0'/>" role="button"><h4>+</h4>New Discussion</a><br><br>
     <c:if test="${user != null}">
-         <a class="btn btn-primary" style="float:right" href="<c:url value='/edit'/>" role="button">+New Discussion</a><br><br>
+         <a class="btn btn-primary" style="float:right" href="<c:url value='/edit/0'/>" role="button"><h4>+</h4>New Discussion</a><br><br>
     </c:if>
     <c:forEach var="post" items="${posts}">
         <div class="card">
@@ -42,10 +43,10 @@
             </div>
             <div class="card-body">
                 <table style="width:100%">
-                    <td><p class="card-text">${post.desc}</p></td>
-                    <td><a href="#" class="btn btn-primary" style="float:right">Edit</a>
+                    <td><p class="card-text">${post.description}</p></td>
+                    <td><a href="<c:url value='/edit/${post.id}'/>" class="btn btn-primary" style="float:right">Edit</a>
                         <span>    </span>
-                        <a href="#" class="btn btn-primary" style="float:right">View</a>
+                        <a href="<c:url value='/post/${post.id}'/>" class="btn btn-primary" style="float:right">View</a>
                    </td>
                 </table>
             </div>

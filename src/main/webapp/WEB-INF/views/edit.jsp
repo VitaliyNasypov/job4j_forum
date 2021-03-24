@@ -27,15 +27,22 @@
     </nav>
 </header>
 <div class="container">
-     <form class="row g-3" action="<c:url value='/edit'/>" method='POST'>
+<c:choose>
+        <c:when test="${post.id != null}">
+         <form class="row g-3" action="<c:url value='/edit/save/${post.id}'/>" method='POST'>
+        </c:when>
+        <c:when test="${post.id == null}">
+         <form class="row g-3" action="<c:url value='/edit/save/0'/>" method='POST'>
+        </c:when>
+    </c:choose>
             <div class="col-md-4">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" value="${post.name}" required>
             </div>
             <br>
             <div class="col-md-4">
-                <label for="desc" class="form-label">Description</label>
-                <input type="text" class="form-control" id="desc" name="desc" required>
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" name="description" value="${post.description}" required>
             </div>
             <div class="col-12">
                 <button class="btn btn-primary" type="submit">Save</button>

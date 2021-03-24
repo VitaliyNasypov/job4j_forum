@@ -4,16 +4,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "COMMENTS")
 public class Comment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "text", nullable = false)
     private String text;
+    @Column(name = "created", nullable = false)
     private Calendar created;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public static Comment of(String text) {

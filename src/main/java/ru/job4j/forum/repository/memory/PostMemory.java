@@ -16,10 +16,10 @@ public class PostMemory {
     static {
         UserMemory userMemory = new UserMemory();
         Post postFirst = Post.of("First post");
-        postFirst.setDesc("Description first post");
+        postFirst.setDescription("Description first post");
         postFirst.setUser(userMemory.findById(1));
         Post postSecond = Post.of("Second post");
-        postSecond.setDesc("Description second post");
+        postSecond.setDescription("Description second post");
         postSecond.setUser(userMemory.findById(1));
         PostMemory postMemory = new PostMemory();
         postMemory.create(postFirst);
@@ -34,12 +34,10 @@ public class PostMemory {
     }
 
     public List<Post> findAll() {
-        System.out.println(POSTS.size());
         return new ArrayList<>(POSTS.values());
     }
 
     public Post create(Post post) {
-        System.out.println(POSTS.size());
         post.setId(POST_ID.incrementAndGet());
         post.setCreated(Calendar.getInstance());
         return POSTS.put(post.getId(), post);

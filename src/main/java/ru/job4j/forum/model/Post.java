@@ -4,26 +4,53 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "POSTS")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name", nullable = false)
     private String name;
-    private String desc;
+    @Column(name = "description", nullable = false)
+    private String description;
+    @Column(name = "created", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar created;
-    private Set<Comment> comments;
+    @OneToMany(
+            mappedBy = "post",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private Set<Comment> comments = new HashSet<>();;
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public static Post of(String name) {
         Post post = new Post();
         post.name = name;
         return post;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPost(this);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setPost(null);
     }
 
     public String getFormattedCalendar() {
@@ -42,12 +69,12 @@ public class Post {
         Post post = (Post) o;
         return id == post.id
                 && Objects.equals(name, post.name)
-                && Objects.equals(desc, post.desc)
+                && Objects.equals(description, post.description)
                 && Objects.equals(created, post.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, created);
+        return Objects.hash(id, name, description, created);
     }
 }
