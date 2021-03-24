@@ -10,7 +10,11 @@ services:
 
 # Версия PostgreSQL
 addons:
-  postgresql: "10"
+  postgresql: "11"
+  apt:
+    packages:
+      - postgresql-11
+      - postgresql-client-11
 
 os:
   - linux
@@ -27,3 +31,5 @@ after_success: bash <(curl -s https://codecov.io/bash)
 env:
   global:
     - CODECOV_TOKEN="c7a2152a-1457-430a-be0e-22d9d8a2060a"
+    - PGPORT=5432
+    - PGUSER=postgres
