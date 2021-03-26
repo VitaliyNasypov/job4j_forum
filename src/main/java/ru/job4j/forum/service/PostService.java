@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class PostService {
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
@@ -27,14 +27,14 @@ public class PostService {
 
     @Transactional(rollbackFor = Exception.class)
     public void save(int id, String name, String description, User user) {
-        Post post = Post.of(name);
-        post.setDescription(description);
-        post.setUser(user);
         if (id > 0) {
-            post.setId(id);
+            postRepository.update(id, name, description);
         } else {
+            Post post = Post.of(name);
+            post.setDescription(description);
+            post.setUser(user);
             post.setCreated(Calendar.getInstance());
+            postRepository.save(post);
         }
-        postRepository.save(post);
     }
 }

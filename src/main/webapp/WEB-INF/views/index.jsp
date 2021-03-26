@@ -17,38 +17,38 @@
     <p class="h5 my-0 me-md-auto fw-normal">Forum job4j</p>
     <nav class="my-2 my-md-0 me-md-3">
         <a class="p-2 text-dark" href="<c:url value='/index'/>">Main</a>
-        <c:choose>
-            <c:when test="${user != null}">
-                <a class="btn btn-outline-primary" href="<c:url value='/logout'/>">${user.username} | Logout</a>
-            </c:when>
-            <c:when test="${user == null}">
-                <a class="p-2 text-dark" href="<c:url value='/login'/>">Login</a>
-                <a class="btn btn-outline-primary" href="<c:url value='/reg'/>">Sign up</a>
-            </c:when>
-        </c:choose>
+        <a class="btn btn-outline-primary" href="<c:url value='/logout'/>">${user.username} | Logout</a>
     </nav>
 </header>
 <div class="container">
-<a class="btn btn-primary" style="float:right" href="<c:url value='/edit/0'/>" role="button"><h4>+</h4>New Discussion</a><br><br>
     <c:if test="${user != null}">
-         <a class="btn btn-primary" style="float:right" href="<c:url value='/edit/0'/>" role="button"><h4>+</h4>New Discussion</a><br><br>
+        <a class="btn btn-primary" style="float:right" href="<c:url value='/edit/0'/>" role="button">New
+            Discussion</a><br><br>
     </c:if>
     <c:forEach var="post" items="${posts}">
         <div class="card">
             <div class="card-header">
                 <table style="width:100%">
                     <td><h5 class="card-title">${post.name}</h5></td>
-                    <td><p class="card-text" style="float:right">${post.formattedCalendar}</p></td>
+                    <td><p class="card-text" style="float:right"><small>${post.formattedCalendar}</small></p></td>
                 </table>
             </div>
-            <div class="card-body">
-                <table style="width:100%">
-                    <td><p class="card-text">${post.description}</p></td>
-                    <td><a href="<c:url value='/edit/${post.id}'/>" class="btn btn-primary" style="float:right">Edit</a>
-                        <span>    </span>
-                        <a href="<c:url value='/post/${post.id}'/>" class="btn btn-primary" style="float:right">View</a>
-                   </td>
-                </table>
+            <div style="padding:1%">
+                <div class="card-body">
+                    <table style="width:100%">
+                        <tr><p class="card-text">${post.description}</p></tr>
+                        <tr>
+                            <td style="width:80%">Author: ${user.username}</td>
+                            <c:if test="${post.user.username == user.username}">
+                                <td style="width:10%"><a href="<c:url value='/edit/${post.id}'/>"
+                                                         class="btn btn-primary"
+                                                         style="float:right">Edit</a></td>
+                            </c:if>
+                            <td style="width:10%"><a href="<c:url value='/post/${post.id}'/>" class="btn btn-primary"
+                                                     style="float:right">View</a></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <br>

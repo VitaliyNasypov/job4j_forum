@@ -21,33 +21,32 @@
     <p class="h5 my-0 me-md-auto fw-normal">Forum job4j</p>
     <nav class="my-2 my-md-0 me-md-3">
         <a class="p-2 text-dark" href="<c:url value='/index'/>">Main</a>
-        <a class="p-2 text-dark" href="<c:url value='/login'/>">Login</a>
-        <a class="btn btn-outline-primary" href="<c:url value='/reg'/>">Sign up</a>
-        <a class="btn btn-outline-primary" href="<c:url value='/logout'/>">NameUser | Logout</a>
+        <a class="btn btn-outline-primary" href="<c:url value='/logout'/>">${user.username} | Logout</a>
     </nav>
 </header>
 <div class="container">
-<c:choose>
+    <c:choose>
         <c:when test="${post.id != null}">
-         <form class="row g-3" action="<c:url value='/edit/save/${post.id}'/>" method='POST'>
+            <form class="row g-3" action="<c:url value='/edit/save/${post.id}'/>" method='POST'>
         </c:when>
         <c:when test="${post.id == null}">
-         <form class="row g-3" action="<c:url value='/edit/save/0'/>" method='POST'>
+            <form class="row g-3" action="<c:url value='/edit/save/0'/>" method='POST'>
         </c:when>
     </c:choose>
-            <div class="col-md-4">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="${post.name}" required>
-            </div>
-            <br>
-            <div class="col-md-4">
-                <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" name="description" value="${post.description}" required>
-            </div>
-            <div class="col-12">
-                <button class="btn btn-primary" type="submit">Save</button>
-            </div>
-        </form>
+    <div class="col-md-4">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="${post.name}" required>
+    </div>
+    <br>
+    <div class="col-md-4">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description" value="${post.description}"
+               required>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+    </form>
 </div>
 </body>
 </html>

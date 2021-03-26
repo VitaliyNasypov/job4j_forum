@@ -27,13 +27,14 @@ public class Post {
     @Column(name = "created", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar created;
+    @OrderBy("created ASC")
     @OneToMany(
             mappedBy = "post",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    private Set<Comment> comments = new HashSet<>();;
+    private Set<Comment> comments = new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

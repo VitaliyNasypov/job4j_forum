@@ -16,25 +16,29 @@
 <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm">
     <p class="h5 my-0 me-md-auto fw-normal">Forum job4j</p>
     <nav class="my-2 my-md-0 me-md-3">
-        <a class="p-2 text-dark" href="<c:url value='/index'/>">Main</a>
         <a class="p-2 text-dark" href="<c:url value='/login'/>">Login</a>
         <a class="btn btn-outline-primary" href="<c:url value='/reg'/>">Sign up</a>
-        <a class="btn btn-outline-primary" href="<c:url value='/logout'/>">NameUser | Logout</a>
     </nav>
 </header>
 <div class="container">
+    <c:if test="${not empty errorMessage}">
+        <div style="color:red; font-weight: bold; margin: 30px 0px;">
+            ${errorMessage}
+        </div>
+    </c:if>
     <form class="row g-3" name='login' action="<c:url value='/login'/>" method='POST'>
         <div class="col-12">
             <label for="username" class="form-label">UserName:</label>
-            <input type="text" class="form-control" id="username" name="username">
+            <input type="text" class="form-control" id="username" name="username" required>
         </div>
         <div class="col-12">
             <label for="password" class="form-label">Password:</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
 </div>
 </body>

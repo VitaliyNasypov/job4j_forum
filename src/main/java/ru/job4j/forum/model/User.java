@@ -20,7 +20,7 @@ public class User {
     private int id;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
     @OneToMany(
             mappedBy = "user",
@@ -36,6 +36,10 @@ public class User {
             fetch = FetchType.LAZY
     )
     private Set<Comment> comments = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "authority_id")
+    private Authority authority;
+    private boolean enabled;
 
     public static User of(String username) {
         User user = new User();

@@ -1,5 +1,6 @@
 package ru.job4j.forum.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +24,19 @@ public class EditController {
         if (id > 0) {
             model.addAttribute("post", postService.findById(id));
         }
+        model.addAttribute("user", SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal());
         return "edit";
     }
 
     @PostMapping("/save/{id}")
-    public String save(@PathVariable int id, @RequestParam String name, @RequestParam String description) {
-        User user = userService.findById(1);
+    public String save(@PathVariable int id, @RequestParam String name,
+                       @RequestParam String description) {
+        User user = userService.findByName(SecurityContextHolder
+                .getContext()
+                .getAuthentication().getName());
         postService.save(id, name, description, user);
         return "redirect:/index";
     }
