@@ -14,7 +14,7 @@
     <groupId>ru.job4j</groupId>
     <artifactId>job4j_forum</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>job4j_forum Maven Webapp</name>
 
