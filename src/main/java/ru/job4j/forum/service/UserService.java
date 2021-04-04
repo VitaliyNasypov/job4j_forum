@@ -20,7 +20,7 @@ public class UserService {
         this.authorities = authorities;
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void save(User user) {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));

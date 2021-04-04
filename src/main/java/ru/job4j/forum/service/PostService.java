@@ -25,7 +25,7 @@ public class PostService {
         return postRepository.findById(id).orElse(new Post());
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void save(int id, String name, String description, User user) {
         if (id > 0) {
             postRepository.update(id, name, description);

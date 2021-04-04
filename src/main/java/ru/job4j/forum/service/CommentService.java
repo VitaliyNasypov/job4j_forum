@@ -17,7 +17,7 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void save(int id, String comment, User user) {
         Post post = new Post();
         post.setId(id);

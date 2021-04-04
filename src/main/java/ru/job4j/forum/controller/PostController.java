@@ -25,7 +25,6 @@ public class PostController {
 
     @GetMapping("/{id}")
     public String post(@PathVariable int id, Model model) {
-        System.out.println(postService.findById(id).getName());
         model.addAttribute("post", postService.findById(id));
         model.addAttribute("user", SecurityContextHolder
                 .getContext()
