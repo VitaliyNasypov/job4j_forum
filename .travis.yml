@@ -1,6 +1,9 @@
 # Travis CI будет использовать язык java.
 language: java
 install: true
+sudo: false
+
+script: mvn clean package -DskipTests=true
 
 # Версия JDK для сборки проекта
 jdk: openjdk11
@@ -28,3 +31,10 @@ env:
     - CODECOV_TOKEN="c7a2152a-1457-430a-be0e-22d9d8a2060a"
     - PGPORT=5432
     - PGUSER=postgres
+
+notifications:
+  email:
+    recipients:
+  -nasvit25@gmail.com
+on_success: never # default: change
+on_failure: always # default: always
