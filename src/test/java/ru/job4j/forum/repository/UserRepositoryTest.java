@@ -14,8 +14,8 @@ public class UserRepositoryTest {
 
     @Test
     public void shouldFindUserByName() {
-        User userFind = userRepository.findByUsername("Username_Test");
+        User userFind = userRepository.findByUsername("Developer");
         Assertions.assertEquals(1, userFind.getId());
-        Assertions.assertEquals("Username_Test", userFind.getUsername());
+        Assertions.assertEquals("Developer", userFind.getUsername());
     }
 }

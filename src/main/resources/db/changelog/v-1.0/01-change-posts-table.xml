@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
     <changeSet id="4" author="developer">
-        <sqlFile dbms="postgresql"
+        <sqlFile
                  encoding="utf8"
                  endDelimiter="\nGO"
                  relativeToChangelogFile="true"
@@ -13,7 +13,7 @@
                  stripComments="true"
                  path="01-create-table-posts.sql"/>
         <rollback>
-            <sqlFile dbms="postgresql"
+            <sqlFile
                      encoding="utf8"
                      endDelimiter="\nGO"
                      relativeToChangelogFile="true"

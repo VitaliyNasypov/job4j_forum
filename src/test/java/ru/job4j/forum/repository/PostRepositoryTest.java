@@ -15,7 +15,7 @@ public class PostRepositoryTest {
     @Test
     public void shouldUpdatePost() {
         Post post = postRepository.findById(1).orElse(new Post());
-        Assertions.assertEquals("Description_Test", post.getDescription());
+        Assertions.assertEquals("First Description", post.getDescription());
         post.setDescription("New_Description_Test");
         postRepository.update(post.getId(), post.getName(), post.getDescription());
         Post postUpdate = postRepository.findById(1).orElse(new Post());
