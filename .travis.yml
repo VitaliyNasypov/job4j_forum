@@ -1,40 +1,25 @@
-# Travis CI будет использовать язык java.
 language: java
 install: true
 sudo: false
-
 script: mvn clean package -DskipTests=true
-
-# Версия JDK для сборки проекта
 jdk: openjdk11
-
 services:
-  - postgresql
-
+- postgresql
 addons:
-  postgresql: "10"
-
+  postgresql: '10'
 os:
-  - linux
-
+- linux
 dist: xenial
-
-# Создать базу данных
 before_install:
-  - psql -c 'create database job4j_forum;' -U postgres
-
-# После выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
-# И отправлять на сервис https://codecov.io/
+- psql -c 'create database job4j_forum;' -U postgres
 after_success: bash <(curl -s https://codecov.io/bash)
 env:
   global:
-    - CODECOV_TOKEN="c7a2152a-1457-430a-be0e-22d9d8a2060a"
-    - PGPORT=5432
-    - PGUSER=postgres
-
-notifications:
-  email:
-    recipients:
-  -nasvit25@gmail.com
-on_success: never # default: change
-on_failure: always # default: always
+  - CODECOV_TOKEN="c7a2152a-1457-430a-be0e-22d9d8a2060a"
+  - PGPORT=5432
+  - PGUSER=postgres
+deploy:
+  provider: heroku
+  api_key:
+    secure: IY8RJZdQI93EGgdf2Q6wZAPPPK2VPxjUYegW9npyVdoxd8qIUp7DCwiRDd33Pzod19AjtSyKA75guhS6mOkQsbCaN1sUnzDA25cC28NI7GguKbPh231KVyytMs82iGNzLfYhmZkLVPD2y2GLwW+zfScNI3N6BIehBG5bqm/RvKsoNlQO942rDz1aqDwvRU1joR4K9g6MY7osMCD9ULV6dVZl5qbQkauVM3T/MhC842MgAnsZjy72CUj72GNsrAjpwjfA7TMmEvFzJrqMdTgEBaDM09hzBP/zAbCSmGvDU/tYeXc+m0zK61eUI1hkbL+/4ECXIiqsNLijNGtoY81T8yzv2HEIufU8MLPeMBcYn6yPbIsqrBDwz+ppoE0rpVPUNCcI6EUOUb47S6aoIzzDxVyehf9OnVAQHHboAIbeHfOwVpbrSC5Jav0Wm9dzvicMGbQK8OolIBdg75dBdrMlNqik2GeQl6VHF4KnR8vu1xiqweq9Bf3zgfBHmE1gRMyJfSbd8SJbitPNpWnuyKJLkAU0iGFExEwWY/zPKtBLN3Lelxp2nufmrfGS12l9sJkM94EVxxLV0dYrT2vMwYbK/py6+zqkJGvg4TKg/bE3sFlEZhAeGbIiEOEC8talpuRJXxWi/lEUj3qIE2Zg2stNEBerA0t3YTVkulAjGYtSPLw=
+  app: frozen-mountain-05627
